@@ -4,7 +4,7 @@ FROM node:4
 # Install PhantomJS
 ENV PHANTOMJS_VERSION 1.9.7
 
-ENV BUILD_PACKAGES wget
+ENV BUILD_PACKAGES curl wget
 ENV PHANTOM_PACKAGES libfreetype6 libfontconfig python
 
 # Install the packages we need.
@@ -19,8 +19,9 @@ RUN \
   apt-get autoremove -y && \
   apt-get clean all
 
-RUN curl -SLO "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2"
-RUN tar -xjf "phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2" -C /usr/local --strip-components=1
-RUN rm "phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2"
+RUN \
+  curl -SLO "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2" && \
+  tar -xjf "phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2" -C /usr/local --strip-components=1 && \
+  rm "phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2"
 
 CMD [ "phantomjs" ]
