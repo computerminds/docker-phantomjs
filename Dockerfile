@@ -6,6 +6,15 @@ ENV PHANTOMJS_VERSION 1.9.7
 
 ENV PHANTOM_PACKAGES libfreetype6 libfontconfig python
 
+# Add Dockerize, as it's useful.
+RUN \
+  apt-get update && apt-get install -y wget && \
+  wget https://github.com/jwilder/dockerize/releases/download/v0.1.0/dockerize-linux-amd64-v0.1.0.tar.gz && \
+  tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.1.0.tar.gz && \
+  apt-get remove -y wget && \
+  apt-get autoremove -y && \
+  apt-get clean all
+
 # Install the packages we need.
 RUN \
   # We need the contrib repo for ttf-mscorefonts-installer.
